@@ -1,43 +1,38 @@
 <template>
   <div id="app">
     <p>App.vue : {{count}}</p>
-    <p>App.vue : {{todos}}</p>
+    <p>返回completed=true的所有数据: {{completedTodos}}</p>
+    <p>completed=true个数: {{completedTodosCount}}</p>
+    <p>getTodosById(1)</p>
     <Count/>
   </div>
 </template>
 
 <script>
 import Count from './components/Count';
-import {mapState} from 'vuex';
+import {mapState,mapGetters} from 'vuex';
 export default {
   name: 'app',
   components: {
     Count
   },
-  // 写法3
-  // computed:mapState(["count","todos"]),
-
-  computed:{
-     ...mapState(["count","todos"]),
-     others:{
-
-     }
-  }
-  // 写法二
-  // computed:mapState({
-  //   count:state => state.count,
-  //   todos:state => state.todos
-  // })
-  // 写法1
+  computed:mapGetters(["count","completedTodos","completedTodosCount","getTodosById"])
   // computed:{
-  //   // 返回的是一个属性
   //   count(){
-  //       return this.$store.state.count;
+  //      return this.$store.getters.count;
   //   },
-  //   todos(){
-  //     return this.$store.state.todos;
-  //   }
-  // }
+  //   completedTodos(){
+  //     return this.$store.getters.completedTodos;
+  //   },
+  //   completedTodosCount(){
+  //     return this.$store.getters.completedTodosCount;
+  //   },
+  //    getTodosById(){
+  //     return this.$store.getters.getTodosById;
+  //    }
+
+  // } 
+  
 }
 </script>
 
