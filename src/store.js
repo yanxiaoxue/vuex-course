@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { isContext } from 'vm';
+import { stat } from 'fs';
+
 
 Vue.use(Vuex)
 
@@ -33,10 +36,37 @@ export default new Vuex.Store({
       
   },
   mutations: {
+     //同步 改变状态
      incrementCount:state => state.count++,
-     decrementCount:(state,m) => state.count -= m.amount
+     decrementCount:(state,m) => state.count -= m.amount,
+     setTodos:(state,todos) => state.todos = todos
   },
   actions: {
-
+     //异步 请求数据  间接调用mutations
+     incrementCountAsync: ({commit}) => {
+       setTimeout(()=> {
+        //  context == this.$store
+        //解构  
+        const object = {
+          name:"xi",
+          age:32
+        }
+        const  {属性名1,属性名2} = object
+        
+         commit("incrementCount")
+       },2000)
+     },
+     decrementCountAsync:(context,m) => {
+       setTimeout(()=> {
+        //  context == this.$store
+         context.commit("decrementCount",m)
+       },1000) 
+     },
+     async fetchDataAsync(context){
+      //  await在异步函数使用 修饰请求的东西 数据请求完了返回给response ，才会打印出来
+       const response = await axios.get("https://jsonplaceholder.typicode.com/todos");
+      //  console.log(response);
+      context.commit("setTodos",response.data)
+     }
   }
 })
