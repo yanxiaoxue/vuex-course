@@ -14,9 +14,10 @@ export default new Vuex.Store({
      ]
   },
   getters:{
+      //获取状态
       // count:state=> ++state.count
       count(state){
-          return ++state.count;
+          return state.count;
       },
       // completedTodos:state => state.todos.filter(todo => todo.completed)
       completedTodos:function(state){
@@ -32,7 +33,8 @@ export default new Vuex.Store({
       
   },
   mutations: {
-
+     incrementCount:state => state.count++,
+     decrementCount:(state,m) => state.count -= m.amount
   },
   actions: {
 

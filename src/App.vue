@@ -1,37 +1,34 @@
 <template>
   <div id="app">
-    <p>App.vue : {{count}}</p>
-    <p>返回completed=true的所有数据: {{completedTodos}}</p>
-    <p>completed=true个数: {{completedTodosCount}}</p>
-    <p>getTodosById(1)</p>
+    <!-- mutations -->
+    <button @click="incrementCount">+</button>
+    <span>{{count}}</span>
+    <button @click="decrementCount({amount:2})">-</button>
     <Count/>
   </div>
 </template>
 
 <script>
 import Count from './components/Count';
-import {mapState,mapGetters} from 'vuex';
+import {mapState,mapGetters,mapMutations} from 'vuex';
 export default {
   name: 'app',
   components: {
     Count
   },
-  computed:mapGetters(["count","completedTodos","completedTodosCount","getTodosById"])
-  // computed:{
-  //   count(){
-  //      return this.$store.getters.count;
+  computed:mapGetters(["count","completedTodos","completedTodosCount","getTodosById"]),
+  methods:mapMutations(["incrementCount","decrementCount"])
+  // methods:{
+  //   increment(){
+  //     //调用mutations里的incrementCount
+  //     this.$store.commit("incrementCount");
   //   },
-  //   completedTodos(){
-  //     return this.$store.getters.completedTodos;
-  //   },
-  //   completedTodosCount(){
-  //     return this.$store.getters.completedTodosCount;
-  //   },
-  //    getTodosById(){
-  //     return this.$store.getters.getTodosById;
-  //    }
-
-  // } 
+  //   decrement(n){
+  //     //调用mutations里的decrementCount
+  //     this.$store.commit("decrementCount",n);
+  //   }
+  // }
+  
   
 }
 </script>
